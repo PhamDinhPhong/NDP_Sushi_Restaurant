@@ -12,22 +12,11 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // checkUser() {
-    //   Future.delayed(Duration(seconds: 100), () {
-    //     if (firebaseAuth.currentUser != null) {
-    //       Navigator.push(context, MaterialPageRoute(builder: (c) => MenuPage()));
-    //     } else {
-    //       Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
-    //     }
-    //   });
-    // }
-
-
     return Scaffold(
       backgroundColor: primaryColor,
       body: Column(
-
-        crossAxisAlignment: CrossAxisAlignment.start, 
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const SizedBox(
             height: 25,
@@ -42,32 +31,26 @@ class IntroPage extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 25,
-          ),
 
-          const Center(
+
+          Padding(
+            padding: const EdgeInsets.all(50.0),
             child: Image(
               image: AssetImage('images/sushi.png'),
-              width: 175,
-              height: 175,
-              fit: BoxFit.contain,
+              // width: 175,
+              // height: 175,
+              // fit: BoxFit.contain,
             ),
-            // padding: const EdgeInsets.all(1.0),
-            // child: Image.asset('lib/images/sushi (1).png'),
           ),
 
-          const SizedBox(height: 25,),
+          // const SizedBox(height: 25,),
 
-          Container(
-            margin: EdgeInsets.only(left: 5),
-            child: Text(
-              "THE TASTE OF JAPANESE FOOD",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.dmSerifDisplay(
-                fontSize: 40,
-                color: Colors.white,
-              ),
+          Text(
+            "THE TASTE OF JAPANESE FOOD",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.dmSerifDisplay(
+              fontSize: 40,
+              color: Colors.white,
             ),
           ),
 
@@ -86,7 +69,7 @@ class IntroPage extends StatelessWidget {
           const SizedBox(height: 25,),
 
           Container(
-            margin: const EdgeInsets.only(left: 9, right: 9),
+            margin: const EdgeInsets.only(left: 9, right: 9, bottom: 9),
             child: MyButton(
                 text: "Get Started",
                 onTap: () {

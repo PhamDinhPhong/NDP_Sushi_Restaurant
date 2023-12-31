@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ndp_sushi_restaurant/Authentication/login.dart';
 import 'package:ndp_sushi_restaurant/global/global.dart';
+import 'package:ndp_sushi_restaurant/pages/cart_page.dart';
 import 'package:ndp_sushi_restaurant/pages/menu_page.dart';
 import '../models/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -113,7 +114,7 @@ class MyDrawer extends StatelessWidget {
                           style: TextStyle(color: Colors.black,),
                         ),
                         onTap: () {
-                          //Navigator.push(context, MaterialPageRoute(builder: (c) => HomeScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (c) => CartPage()));
                         },
                       ),
 

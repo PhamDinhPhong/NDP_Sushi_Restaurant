@@ -3,25 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ndp_sushi_restaurant/components/button.dart';
 import 'package:ndp_sushi_restaurant/components/food_tile.dart';
+import 'package:ndp_sushi_restaurant/components/search_screen.dart';
 import 'package:ndp_sushi_restaurant/global/global.dart';
 import 'package:ndp_sushi_restaurant/models/food.dart';
 import 'package:ndp_sushi_restaurant/pages/food_details_page.dart';
-import 'package:ndp_sushi_restaurant/pages/search_screen.dart';
 import 'package:ndp_sushi_restaurant/widgets/my_drawer.dart';
 import 'package:ndp_sushi_restaurant/widgets/progress_bar.dart';
-import 'package:provider/provider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ndp_sushi_restaurant/pages/search_screen.dart';
-import '../models/shop.dart';
+// import 'package:provider/provider.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import '../models/shop.dart';
 
 class MenuPage extends StatefulWidget {
+  Food? food;
+  BuildContext? context;
 
-  
-  const MenuPage({
+  MenuPage({
     super.key,
+    this.food,
+    this.context,
   });
 
-  
 
   @override
   State<MenuPage> createState() => _MenuPageState();
@@ -29,23 +30,24 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
 
-  void navigateToFoodDetails(int index) {
-    final shop = context.read<Shop>();
-    final foodMenu = shop.foodMenu;
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => FoodDetailsPage(
-        food: foodMenu[index],
-      ),),
-    );
-  }
+  // void navigateToFoodDetails(int index) {
+  //   final shop = context.read<Shop>();
+  //   final foodMenu = shop.foodMenu;
+  //
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => FoodDetailsPage(
+  //       food: foodMenu[index],
+  //       // Food: null,
+  //     ),),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final Food food;
-    final shop = context.read<Shop>();
-    final foodMenu = shop.foodMenu;
+    // final Food food;
+    // final shop = context.read<Shop>();
+    // final foodMenu = shop.foodMenu;
 
     return Scaffold(
       backgroundColor: Colors.grey[300],
@@ -63,15 +65,18 @@ class _MenuPageState extends State<MenuPage> {
         actions: [
           Row(
             children: [
-              IconButton(onPressed: () {},
-                  icon: const Icon(FontAwesomeIcons.shoppingCart)
+
+              // IconButton(onPressed: () {},
+              //     icon: const Icon(FontAwesomeIcons.shoppingCart)
+              // ),
+              IconButton(onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (c) => SearchScreen() ));
+              },
+                  icon: Icon(Icons.search),
               ),
-              IconButton(
-                  onPressed: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()),);
-                  },
-                  icon: const Icon(FontAwesomeIcons.magnifyingGlass)
-              ),
+
+
+
             ],
 
           )
@@ -136,6 +141,7 @@ class _MenuPageState extends State<MenuPage> {
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance.collection("food").snapshots(),
               builder: (context, snapshot) {
+
                 return (!snapshot.hasData)
                     ? Center(
                   child: circularProgress(),
@@ -145,11 +151,21 @@ class _MenuPageState extends State<MenuPage> {
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
                           Food sModel = Food.fromJson(
-                            snapshot.data!.docs[index].data()!
-                            as Map<String, dynamic>,
+                            snapshot.data!.docs[index]
                           );
                           return FoodTile(
-                            onTap: () => navigateToFoodDetails(index),
+                            onTap: () async {
+                              Navigator.push(context, MaterialPageRoute(builder: (c) => FoodDetailsPage(
+                                food: widget.food ,
+                                context: context,
+                                idFood: sModel.foodUID,
+                              )
+                              )
+                              );
+
+                            }
+                            // => navigateToFoodDetails(index)
+                            ,
                             food: sModel,
                             context: context,
                           );
@@ -160,7 +176,7 @@ class _MenuPageState extends State<MenuPage> {
           ),
 
 
-          const SizedBox(height: 25),
+          const SizedBox(height: 10),
 
           Container(
             decoration: BoxDecoration(

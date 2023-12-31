@@ -1,33 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:ndp_sushi_restaurant/models/food.dart';
-// import 'food.dart';
-
-// class Shop extends ChangeNotifier {
-//   final List<Food> _foodMenu = [
-
-
-//   ];
-
-//   List<Food> _cart = [];
-
-//   List<Food> get foodMenu => _foodMenu;
-//   List<Food> get cart => _cart;
-
-//   void addToCart(Food foodItem, int quantity) {
-//     for (int i = 0; i < quantity; i++) {
-//       _cart.add(foodItem);
-//     }
-//     notifyListeners();
-//   }
-
-//   void removeFromCart(Food model) {
-//     _cart.remove(model);
-//     notifyListeners();
-//   }
-// }
-
 
 class Shop extends ChangeNotifier {
   CollectionReference _foodCollection = FirebaseFirestore.instance.collection('food');
@@ -41,7 +14,7 @@ class Shop extends ChangeNotifier {
   // Hàm này sẽ tải danh sách thực phẩm từ Firebase
   Future<void> loadFoodMenu() async {
     QuerySnapshot foodSnapshot = await _foodCollection.get();
-    _foodMenu = foodSnapshot.docs.map((doc) => Food.fromJson(doc.data() as Map<String, dynamic>)).toList();
+    _foodMenu = foodSnapshot.docs.map((doc) => Food.fromJson(doc)).toList();
     notifyListeners();
   }
 

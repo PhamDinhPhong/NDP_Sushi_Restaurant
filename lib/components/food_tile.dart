@@ -4,7 +4,7 @@ import 'package:ndp_sushi_restaurant/models/food.dart';
 
 
 class FoodTile extends StatelessWidget {
-  final Food food;
+  final Food? food;
   BuildContext? context;
   final void Function()? onTap;
 
@@ -24,7 +24,7 @@ class FoodTile extends StatelessWidget {
           color: Colors.grey[100],
           borderRadius: BorderRadius.circular(20),
         ),
-        margin: const EdgeInsets.only(left: 25,),
+        margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +42,7 @@ class FoodTile extends StatelessWidget {
 
             // text
             Text(
-              food.foodName!,
+              food!.foodName!,
               style: GoogleFonts.dmSerifDisplay(fontSize: 20),
             ),
 
@@ -54,7 +54,7 @@ class FoodTile extends StatelessWidget {
                 children: [
                   //price
                   Text(
-                    '\$ ${food.foodPrice!}',
+                    '\$ ${food!.foodPrice!}',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.grey[700]),
                   ),
@@ -67,7 +67,7 @@ class FoodTile extends StatelessWidget {
                         color: Colors.yellow[800],
                       ),
                       Text(
-                        food.foodRating!,
+                        food!.foodRating!,
                         style: TextStyle(color: Colors.grey),
                       ),
                     ],
