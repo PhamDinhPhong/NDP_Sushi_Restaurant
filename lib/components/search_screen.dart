@@ -14,12 +14,15 @@ class SearchScreen extends StatefulWidget {
   class _SearchScreenState extends State<SearchScreen> {
 
     Future<QuerySnapshot>? foodsDocumentList;
-    String foodName = "";
+    String foodNames = "";
 
     initSearchFood(String textEntered) {
       foodsDocumentList = FirebaseFirestore.instance.collection("food")
           .where("foodName", isGreaterThanOrEqualTo: textEntered).get();
     }
+
+
+
 
     @override
     Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class SearchScreen extends StatefulWidget {
           title: TextField(
             onChanged: (value) {
               setState(() {
-                foodName = value;
+                foodNames = value;
               });
               initSearchFood(value);
             },
@@ -45,7 +48,7 @@ class SearchScreen extends StatefulWidget {
                 icon: Icon(Icons.search),
                 color: Colors.white,
                 onPressed: () {
-                  initSearchFood(foodName);
+                  initSearchFood(foodNames);
                 },
               ),
             ),
@@ -67,13 +70,11 @@ class SearchScreen extends StatefulWidget {
                         );
                         return FoodDetailsPage(
                           food: food,
-                          context: context,
                           idFood: '',
                         );
                     }
                 ):Center(child: Text("No Recored Fould"),);
             },
-
         )
       );
     }

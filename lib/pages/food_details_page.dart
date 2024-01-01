@@ -12,12 +12,11 @@ class FoodDetailsPage extends StatefulWidget {
   final BuildContext? context;
   final String? idFood;
 
-  FoodDetailsPage({
+  const FoodDetailsPage({
     super.key,
     this.food,
     this.context,
     required this.idFood,
-    // required Food,
   });
 
   @override
@@ -163,7 +162,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
 
               Container(
                 color: primaryColor,
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.all(10),
                 child: Column(
                   children: [
                     Row(
@@ -226,7 +225,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                       ],
                     ),
 
-                    const SizedBox(height: 25,),
+                    const SizedBox(height: 10,),
 
                     MyButton(
                       text: "Add To Cart",
